@@ -5,10 +5,16 @@ export default function Home() {
     <div>
       <header className="navbar navbar-light sticky-top bg-light flex-md-nowrap py-2 shadow">
         <a
-          className="navbar-brand bg-light text-center col-md-3 col-lg-2 me-0 px-3 fs-6 border-none"
+          className="bg-light text-center col-md-3 col-lg-2 me-0 px-3 fs-6 border-none"
           href="#"
         >
-          Maskology
+          <img
+            className="p-1"
+            src="public/logo-dashboard.png"
+            alt=""
+            width="100"
+            height="43"
+          />
         </a>
         <button
           className="navbar-toggler position-absolute d-md-none collapsed"

@@ -1,18 +1,30 @@
+import { useState } from "react";
+import type { FormEvent } from "react";
 import "./login.css";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleLogin(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (email && password) {
+      console.log(email, password);
+    }
+  }
+
   return (
     <div className="container h-100 d-flex align-item-center justify-content-center">
       <main className="col form-signin text-center m-auto">
-        <form>
+        <form onSubmit={(e) => handleLogin(e)}>
           <img
             className="mb-4"
-            src="public/logo.jpg"
+            src="public/logo-dashboard.png"
             alt=""
-            width="72"
+            width="195"
             height="72"
           />
-          <h1 className="h3 mb-5 fw-normal">Login Form</h1>
+          <h1 className="h4 mt-5 mb-4 fw-normal">Login Form</h1>
 
           <div className="form-floating">
             <input
@@ -20,6 +32,8 @@ export default function Login() {
               className="form-control"
               id="floatingInput"
               placeholder="name@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <label htmlFor="floatingInput">Email address</label>
           </div>
@@ -29,6 +43,8 @@ export default function Login() {
               className="form-control"
               id="floatingPassword"
               placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <label htmlFor="floatingPassword">Password</label>
           </div>
