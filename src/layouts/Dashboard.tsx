@@ -10,7 +10,7 @@ export default function Layout() {
         >
           <img
             className="p-1"
-            src="public/logo-dashboard.png"
+            src="/logo-dashboard.png"
             alt=""
             width="100"
             height="43"
@@ -79,7 +79,7 @@ export default function Layout() {
                     Product
                   </a>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <a className="fs-5 nav-link mb-2" href="#">
                     <span
                       data-feather="file-text"
@@ -87,7 +87,7 @@ export default function Layout() {
                     ></span>
                     About
                   </a>
-                </li>
+                </li> */}
               </ul>
             </div>
           </nav>

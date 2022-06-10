@@ -4,9 +4,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
 import LayoutDashboard from "./layouts/Dashboard";
-import Home from "./pages/Home/";
 import Product from "./pages/Product";
-import About from "./pages/About";
+import AddProduct from "./pages/AddProduct";
+import EditProduct from "./pages/EditProduct";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
@@ -16,7 +17,8 @@ function App() {
       <Route path="/" element={<LayoutDashboard />}>
         <Route index element={<Home />} />
         <Route path="/product" element={<Product />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/add-product" element={<AddProduct />} />
+        <Route path="/edit-product/:id" element={<EditProduct />} />
       </Route>
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
