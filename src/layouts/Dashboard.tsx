@@ -1,6 +1,12 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate, Link } from "react-router-dom";
 
 export default function Layout() {
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    navigate("/login");
+  }
+
   return (
     <div className="dashboard-layout">
       <header className="navbar navbar-light sticky-top bg-light flex-md-nowrap py-2 pe-4 shadow">
@@ -29,9 +35,12 @@ export default function Layout() {
         </button>
         <div className="navbar-nav">
           <div className="nav-item text-nowrap">
-            <a className="btn btn-danger text-white nav-link px-3" href="#">
+            <button
+              className="btn btn-danger text-white nav-link px-3"
+              onClick={() => handleLogout()}
+            >
               Sign out
-            </a>
+            </button>
           </div>
         </div>
       </header>
@@ -58,26 +67,22 @@ export default function Layout() {
               </h6>
               <ul className="nav flex-column mb-2">
                 <li className="nav-item">
-                  <a
-                    className="fs-5 nav-link mb-2 active"
-                    aria-current="page"
-                    href="#"
-                  >
+                  <Link className="fs-5 nav-link mb-2" to="/">
                     <span
                       data-feather="file-text"
                       className="align-text-bottom"
                     ></span>
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="fs-5 nav-link mb-2" href="#">
+                  <Link className="fs-5 nav-link mb-2" to="/product">
                     <span
                       data-feather="file-text"
                       className="align-text-bottom"
                     ></span>
                     Product
-                  </a>
+                  </Link>
                 </li>
                 {/* <li className="nav-item">
                   <a className="fs-5 nav-link mb-2" href="#">

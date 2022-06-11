@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import "./register.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -9,11 +10,14 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const navigate = useNavigate();
+
   function handleRegister(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (email && password && name && contact) {
       if (password === confirmPassword) {
         console.log(name, contact, email, password);
+        navigate("/login");
       } else {
         alert("Password not match");
       }
