@@ -1,6 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import api from "../../api/server";
+
+interface Category {
+  tags: string;
+  name: string;
+  id: string;
+}
+
+interface CategoryData {
+  meta: any;
+  data: Category[];
+}
 
 export default function AddProduct() {
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [stock, setStock] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [image, setImage] = useState(null);
+  const [description, setDescription] = useState("");
+
+  const [categoryList, setCategoryList] = useState<Category[]>([]);
+  async function getCategory() {
+    const result: CategoryData = await api("/categories?page=1&limit=6");
+    setCategoryList(result.data);
+  }
+
+  useEffect(() => {
+    getCategory();
+  }, []);
+
   return (
     <div className="mx-5 px-5">
       <h2 className="my-5">Add Product</h2>
@@ -24,10 +53,12 @@ export default function AddProduct() {
             className="form-select"
             aria-label="Default select example"
           >
-            <option selected>Selected Here</option>
-            <option value="1">Barong</option>
-            <option value="2">Dalem</option>
-            <option value="3">Keras</option>
+            <option defaultValue={""}>Selected Here</option>
+            {categoryList.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
           </select>
         </div>
         <div className="mb-3">
@@ -64,7 +95,7 @@ export default function AddProduct() {
           ></textarea>
         </div>
         <div className="d-flex justify-content-end">
-          <button className="btn btn-primary">Add Product</button>
+          <button className="btn btn-primary mb-5">Add Product</button>
         </div>
       </form>
     </div>
