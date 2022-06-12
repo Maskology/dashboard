@@ -6,7 +6,7 @@ export default function Home() {
       <div className="text-center">
         <img
           className="p-1"
-          src="public/logo-dashboard.png"
+          src="/logo-dashboard.png"
           alt=""
           width="400"
           height="150"

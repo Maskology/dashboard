@@ -24,6 +24,17 @@ export default function Product() {
     getData();
   }, []);
 
+  async function deleteData(id: string) {
+    await api(`/products/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")!}`,
+      },
+    });
+    alert("Data deleted");
+    await getData();
+  }
+
   return (
     <div className="mx-5 px-5">
       <div className="d-flex">
@@ -52,7 +63,20 @@ export default function Product() {
               <td>{data.stock}</td>
               <td>{data.price}</td>
               <td>
-                <Link to={`/edit-product/${data.id}`}>Edit</Link> | Delete
+                <Link
+                  className="text-decoration-none text-primary"
+                  to={`/edit-product/${data.id}`}
+                >
+                  Edit
+                </Link>{" "}
+                |{" "}
+                <span
+                  role="button"
+                  className="text-danger"
+                  onClick={() => deleteData(data.id)}
+                >
+                  Delete
+                </span>
               </td>
             </tr>
           ))}

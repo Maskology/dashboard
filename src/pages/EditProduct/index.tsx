@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function EditProduct() {
   return (
     <div className="mx-5 px-5">
-      <h2 className="my-5">Edit Product</h2>
+      <h2 className="my-5">Edit Product (Under Development)</h2>
       <form>
         <div className="mb-3">
           <label htmlFor="exampleFormControlInput1" className="form-label">
@@ -64,7 +65,10 @@ export default function EditProduct() {
           ></textarea>
         </div>
         <div className="d-flex justify-content-end">
-          <button className="btn btn-primary">Add Product</button>
+          <Link to={"/product"}>
+            <button className="btn btn-light mb-5 me-2">Back</button>
+          </Link>
+          <button className="btn btn-primary mb-5">Edit Product</button>
         </div>
       </form>
     </div>

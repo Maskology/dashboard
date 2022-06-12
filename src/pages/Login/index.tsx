@@ -30,7 +30,6 @@ export default function Login() {
             password,
           },
         });
-        console.log(result);
         if (result) {
           localStorage.setItem("token", result.token);
           localStorage.setItem("id", result.user.id);
@@ -39,7 +38,6 @@ export default function Login() {
       }
     } catch (e: any) {
       //  Why error here use any? https://stackoverflow.com/questions/69021040/why-catch-clause-variable-type-annotation-must-be-any
-      console.log(e.response._data.message);
       alert(e.response._data.message);
     }
   }

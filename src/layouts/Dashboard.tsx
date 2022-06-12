@@ -38,7 +38,7 @@ export default function Layout() {
         <div className="navbar-nav">
           <div className="nav-item text-nowrap">
             <button
-              className="btn btn-danger text-white nav-link px-3"
+              className="btn btn-secondary text-white nav-link px-3"
               onClick={() => handleLogout()}
             >
               Sign out
