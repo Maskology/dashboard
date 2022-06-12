@@ -1,35 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import api from "../../api/server";
+
+interface ProductData {
+  id: string;
+  name: string;
+  stock: number;
+  price: number;
+}
 
 export default function Product() {
   const thead = ["#", "Name", "Stock", "Price", "Action"];
-  const [data, setData] = useState([
-    {
-      name: "Topeng Barong",
-      stock: 10,
-      price: 1000000,
-    },
-    {
-      name: "Topeng Barong",
-      stock: 10,
-      price: 1000000,
-    },
-    {
-      name: "Topeng Barong",
-      stock: 10,
-      price: 1000000,
-    },
-    {
-      name: "Topeng Barong",
-      stock: 10,
-      price: 1000000,
-    },
-    {
-      name: "Topeng Barong",
-      stock: 10,
-      price: 1000000,
-    },
-  ]);
+  const [data, setData] = useState<ProductData[]>([]);
+
+  async function getData() {
+    const result: ProductData[] = await api(
+      `/stores/${localStorage.getItem("id")}/product`
+    );
+    setData(result);
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div className="mx-5 px-5">
@@ -37,27 +30,29 @@ export default function Product() {
         <h2 className="my-5">Product List</h2>
         <Link to="/add-product">
           <button className="btn btn-sm btn-primary my-5 ms-3 fw-bold">
-            Tambah
+            Add Product
           </button>
         </Link>
       </div>
       <table className="table border">
         <thead>
           <tr>
-            {thead.map((data) => (
-              <th scope="col">{data}</th>
+            {thead.map((data, index) => (
+              <th scope="col" key={index}>
+                {data}
+              </th>
             ))}
           </tr>
         </thead>
         <tbody>
           {data.map((data, index) => (
-            <tr>
+            <tr key={data.id}>
               <th scope="row">{index + 1}</th>
               <td>{data.name}</td>
               <td>{data.stock}</td>
               <td>{data.price}</td>
               <td>
-                <Link to={`/edit-product/${index}`}>Edit</Link> | Delete
+                <Link to={`/edit-product/${data.id}`}>Edit</Link> | Delete
               </td>
             </tr>
           ))}

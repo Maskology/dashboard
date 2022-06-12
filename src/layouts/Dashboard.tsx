@@ -4,6 +4,8 @@ export default function Layout() {
   const navigate = useNavigate();
 
   function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("id");
     navigate("/login");
   }
 

@@ -2,18 +2,45 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
+import api from "../../api/server";
+
+interface StoreLogin {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  token: string;
+}
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("maskology2@mail.com");
+  const [password, setPassword] = useState("maskology123");
 
   const navigate = useNavigate();
 
-  function handleLogin(e: FormEvent<HTMLFormElement>) {
+  async function handleLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (email && password) {
-      console.log(email, password);
-      navigate("/");
+    try {
+      if (email && password) {
+        const result: StoreLogin = await api("/login", {
+          method: "POST",
+          body: {
+            email,
+            password,
+          },
+        });
+        console.log(result);
+        if (result) {
+          localStorage.setItem("token", result.token);
+          localStorage.setItem("id", result.user.id);
+          navigate("/");
+        }
+      }
+    } catch (e: any) {
+      //  Why error here use any? https://stackoverflow.com/questions/69021040/why-catch-clause-variable-type-annotation-must-be-any
+      console.log(e.response._data.message);
+      alert(e.response._data.message);
     }
   }
 
@@ -23,7 +50,7 @@ export default function Login() {
         <form onSubmit={(e) => handleLogin(e)}>
           <img
             className="mb-4"
-            src="public/logo-dashboard.png"
+            src="/logo-dashboard.png"
             alt=""
             width="195"
             height="72"

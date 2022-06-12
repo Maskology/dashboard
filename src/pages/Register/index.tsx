@@ -30,7 +30,7 @@ export default function Register() {
         <form onSubmit={(e) => handleRegister(e)}>
           <img
             className="mb-4"
-            src="public/logo-dashboard.png"
+            src="/logo-dashboard.png"
             alt=""
             width="195"
             height="72"
