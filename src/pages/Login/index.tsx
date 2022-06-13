@@ -14,8 +14,8 @@ interface StoreLogin {
 }
 
 export default function Login() {
-  const [email, setEmail] = useState("maskology2@mail.com");
-  const [password, setPassword] = useState("maskology123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
