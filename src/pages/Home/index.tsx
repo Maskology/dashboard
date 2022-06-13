@@ -11,8 +11,8 @@ export default function Home() {
           width="400"
           height="150"
         />
-        <h2 className="mt-5">Since 2022</h2>
-        <p>Hel plocal bussiness to grow and conserve the culture</p>
+        <h4 className="mt-5">Hello, {localStorage.getItem("name")}</h4>
+        <h6>{localStorage.getItem("email")}</h6>
       </div>
     </div>
   );

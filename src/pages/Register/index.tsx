@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./register.css";
-import { useNavigate } from "react-router-dom";
+import api from "../../api/server";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -12,17 +13,39 @@ export default function Register() {
 
   const navigate = useNavigate();
 
-  function handleRegister(e: FormEvent<HTMLFormElement>) {
+  async function handleRegister(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (email && password && name && contact) {
       if (password === confirmPassword) {
-        console.log(name, contact, email, password);
-        navigate("/login");
+        const result = await api("/stores", {
+          method: "POST",
+          body: {
+            name,
+            contact,
+            email,
+            password,
+            desc: "Menjual topeng bali",
+            profilePictureUrl:
+              "https://storage.googleapis.com/maskology-images/image-placeholder/profile.jpg",
+            backgroundUrl:
+              "https://storage.googleapis.com/maskology-images/image-placeholder/background.jpg",
+          },
+        });
+        if (result) {
+          alert("Register success. Please login with your new account.");
+          navigate("/login");
+        }
       } else {
         alert("Password not match");
       }
     }
   }
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  });
 
   return (
     <div className="container h-100 d-flex align-item-center justify-content-center">
@@ -87,9 +110,12 @@ export default function Register() {
             />
             <label htmlFor="floatingPassword">Confirm Password</label>
           </div>
-          <button className="w-100 mt-5 btn btn-primary" type="submit">
+          <button className="w-100 mt-4 btn btn-primary" type="submit">
             Register
           </button>
+          <Link to={"/login"}>
+            <p className="mt-2">Login Here</p>
+          </Link>
           <p className="mt-5 mb-3 text-muted">&copy; 2022, Denpasar, Bali</p>
         </form>
       </main>

@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./login.css";
 import api from "../../api/server";
 
@@ -33,6 +33,8 @@ export default function Login() {
         if (result) {
           localStorage.setItem("token", result.token);
           localStorage.setItem("id", result.user.id);
+          localStorage.setItem("name", result.user.name);
+          localStorage.setItem("email", result.user.email);
           navigate("/");
         }
       }
@@ -41,6 +43,12 @@ export default function Login() {
       alert(e.response._data.message);
     }
   }
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  });
 
   return (
     <div className="container h-100 d-flex align-item-center justify-content-center">
@@ -80,6 +88,9 @@ export default function Login() {
           <button className="w-100 mt-4 btn btn-primary" type="submit">
             Sign in
           </button>
+          <Link to={"/register"}>
+            <p className="mt-2">Register Here</p>
+          </Link>
           <p className="mt-5 mb-3 text-muted">&copy; 2022, Denpasar, Bali</p>
         </form>
       </main>

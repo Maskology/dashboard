@@ -1,4 +1,5 @@
 import { Outlet, useNavigate, Link } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Layout() {
   const navigate = useNavigate();
@@ -8,6 +9,12 @@ export default function Layout() {
     localStorage.removeItem("id");
     navigate("/login");
   }
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  });
 
   return (
     <div className="dashboard-layout">
